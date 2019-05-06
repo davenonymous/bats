@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "bats:batcage"
+  },
+  "pattern": [
+    "bbb",
+    "bxb",
+    "bbb"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "bats:capturedbat"
+    },
+    "x": {
+      "item": "minecraft:chest"
+    }
+  }
+}

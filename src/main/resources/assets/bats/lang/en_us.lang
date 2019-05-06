@@ -1,0 +1,43 @@
+tile.bats.batcage.name=Bat Cage
+tile.bats.batcage.tooltip=Transport stuff using bats!
+
+item.bats.guano.name=Bat Guano
+item.bats.guano.tooltip=Used to mark blocks for bats
+item.bats.guano.tooltip_pos=Cage: %d, %d, %d
+
+item.bats.capturedbat.name=Captured Bat
+item.bats.capturedbat.tooltip=Right click a bat with a lead to capture it
+
+gui.filter.import_rules=Import rules
+gui.filter.export_rules=Export rules
+
+gui.filter.mode=Whitelist or Blacklist
+gui.filter.priority=Priority
+gui.filter.match_nbt=Match NBT
+gui.filter.match_meta=Match meta data
+gui.filter.match_ore=Match ore dictionary
+gui.filter.match_mod=Match Mod
+
+gui.tab.item=Items
+gui.tab.fluid=Fluids
+gui.tab.energy=Energy
+
+gui.button.get_guano=Get Guano
+
+gui.hints.step1=Use the guano from this cage and smear it over nearby blocks.
+gui.hints.step2=Then return to the cage and tell your bats what they should carry with them.
+gui.hints.step3=When im/exporting, the cage will behave as if it were the linked blocks.
+
+msg.bats.invalid_guano=Something is wrong with your guano.
+msg.bats.core_not_found=Bat cage does not exist anymore.
+msg.bats.no_more_free_links=All your bats already have a territory.
+msg.bats.created_link=You smeared some guano on the block.
+msg.bats.removed_link=Ewww, you've got guano all over your hands.
+
+enumfacing.side=Side: %s
+enumfacing.up=Up
+enumfacing.down=Down
+enumfacing.north=North
+enumfacing.south=South
+enumfacing.west=West
+enumfacing.east=East

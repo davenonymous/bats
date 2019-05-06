@@ -1,0 +1,16 @@
+[
+{
+  "modid": "bats",
+  "name": "Bats!",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Davenonymous"],
+  "credits": "Davenonymous",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
