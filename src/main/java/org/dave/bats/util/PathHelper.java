@@ -21,7 +21,7 @@ public class PathHelper {
 
     @Nullable
     public Path findPath(World world, BlockPos start, BlockPos end, float maxDistance) {
-        Logz.info("Looking for path from %s to %s", start, end);
+        //Logz.info("Looking for path from %s to %s", start, end);
         EntityBat bat = new EntityBat(world);
         bat.posX = start.getX() + 0.5d;
         bat.posY = start.getY() + 0.5d;
@@ -74,7 +74,7 @@ public class PathHelper {
             PathPoint point = path.getPathPointFromIndex(index);
             BlockPos pos = new BlockPos(point.x, point.y, point.z);
             if(!world.isAirBlock(pos)) {
-                Logz.info("Path invalid id=%d, pos=%s --> %s", index, pos, world.getBlockState(pos));
+                //Logz.info("Path invalid id=%d, pos=%s --> %s", index, pos, world.getBlockState(pos));
                 return false;
             }
         }
