@@ -10,8 +10,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import org.dave.bats.gui.BatCageSlot;
+import org.dave.bats.gui.framework.WidgetSlot;
 import org.dave.bats.util.FaceIdentifier;
+import org.dave.bats.util.Logz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,9 +70,9 @@ public class BatCageContainer extends Container {
                     IItemHandler itemHandler = linkedTile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, linkConfig.side);
                     int x = 0;
                     int y = 0;
-                    List<BatCageSlot> slots = new ArrayList<>();
+                    List<WidgetSlot> slots = new ArrayList<>();
                     for (int iSlot = 0; iSlot < itemHandler.getSlots(); iSlot++) {
-                        BatCageSlot slot = new BatCageSlot(itemHandler, iSlot, 8 + x * 18, 20 + y * 18);
+                        WidgetSlot slot = new WidgetSlot(itemHandler, iSlot, 8 + x * 18, 20 + y * 18);
                         slots.add(slot);
                         this.addSlotToContainer(slot);
 
@@ -133,7 +134,7 @@ public class BatCageContainer extends Container {
             int lastValidSlot = -1;
             int slotId = 0;
             for(Slot invSlot : this.inventorySlots) {
-                if(invSlot instanceof BatCageSlot && invSlot.isEnabled()) {
+                if(invSlot instanceof WidgetSlot && invSlot.isEnabled() && invSlot.getStack().getCount() < invSlot.getStack().getMaxStackSize()) {
                     if(firstValidSlot == -1) {
                         firstValidSlot = slotId;
                     }
@@ -162,12 +163,36 @@ public class BatCageContainer extends Container {
         } else if(index > 35) {
             // Inventory slot
             ItemStack clickedStack = slot.getStack();
-            if(!this.mergeItemStack(clickedStack, 0, 35, false)) {
-                return ItemStack.EMPTY;
-            }
+            if(clickedStack.getCount() > clickedStack.getMaxStackSize()) {
+                ItemStack shrinkedStack = clickedStack.copy();
+                shrinkedStack.setCount(clickedStack.getMaxStackSize());
 
-            slot.onSlotChanged();
-            return clickedStack;
+                if(!this.mergeItemStack(shrinkedStack, 0, 36, false)) {
+                    return ItemStack.EMPTY;
+                }
+
+                ItemStack remainder = slot.getStack();
+                remainder.setCount(remainder.getCount() - remainder.getMaxStackSize());
+
+                if(!shrinkedStack.isEmpty()) {
+                    remainder.setCount(remainder.getCount() + shrinkedStack.getCount());
+                }
+                slot.putStack(remainder);
+
+                return ItemStack.EMPTY;
+            } else {
+                if(!this.mergeItemStack(clickedStack, 0, 35, false)) {
+                    return ItemStack.EMPTY;
+                }
+
+                if(clickedStack.isEmpty()) {
+                    slot.putStack(ItemStack.EMPTY);
+                } else {
+                    slot.onSlotChanged();
+                }
+
+                return clickedStack;
+            }
         }
 
         return ItemStack.EMPTY;

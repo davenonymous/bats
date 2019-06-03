@@ -137,7 +137,13 @@ public class GUI extends WidgetPanel {
 
         RenderHelper.disableStandardItemLighting();
 
-        GlStateManager.color(1f, 1f, 1f, 1f);
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1f);
+        if(slot instanceof WidgetSlot) {
+            if(!slot.canTakeStack(screen.mc.player)) {
+                GlStateManager.color(1.0f, 0.3f, 0.3f, 1f);
+            }
+        }
+
         screen.mc.renderEngine.bindTexture(tabIcons);
 
         float offsetX = guiLeft-1;
@@ -152,6 +158,8 @@ public class GUI extends WidgetPanel {
         // Top Left corner
 
         screen.drawTexturedModalRect(slot.xPos, slot.yPos, texOffsetX, texOffsetY, 18, 18);
+
+        GlStateManager.color(1f, 1f, 1f, 1f);
         RenderHelper.enableGUIStandardItemLighting();
 
         GlStateManager.popMatrix();

@@ -3,7 +3,7 @@ package org.dave.bats.func.batcage.widgets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import org.dave.bats.func.batcage.BatCageLinkGuiData;
-import org.dave.bats.gui.BatCageSlot;
+import org.dave.bats.gui.framework.WidgetSlot;
 import org.dave.bats.gui.framework.event.ValueChangedEvent;
 import org.dave.bats.gui.framework.event.VisibilityChangedEvent;
 import org.dave.bats.gui.framework.event.WidgetEventResult;
@@ -44,7 +44,7 @@ public class WidgetLinkInventoryAccessPanel extends WidgetPanel {
             int firstVisibleSlot = page * 27;
             int lastVisibleSlot = firstVisibleSlot + 27;
             int slotNum = 0;
-            for(BatCageSlot slot : linkData.slots) {
+            for(WidgetSlot slot : linkData.slots) {
                 if(slotNum >= firstVisibleSlot && slotNum < lastVisibleSlot) {
                     slot.bindToWidget(slotPage);
                 }

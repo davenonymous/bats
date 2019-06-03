@@ -48,12 +48,8 @@ public class BatCageItemHandler implements IItemHandlerModifiable {
             }
 
             IItemHandler remoteCap = remoteTile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, link.side);
-            if(!(remoteCap instanceof IItemHandlerModifiable)) {
-                continue;
-            }
-
             for(int slot = 0; slot < remoteCap.getSlots(); slot++) {
-                slots.add(new RemoteSlotReference(link, (IItemHandlerModifiable)remoteCap, slot));
+                slots.add(new RemoteSlotReference(link, remoteCap, slot));
             }
         }
 
@@ -142,18 +138,31 @@ public class BatCageItemHandler implements IItemHandlerModifiable {
 
         boolean allowed = (matched && isWhitelist) || (!matched && !isWhitelist);
         if(allowed) {
-            ref.handler.setStackInSlot(ref.slot, stack);
+
+            if(ref.handler instanceof IItemHandlerModifiable) {
+                ((IItemHandlerModifiable)ref.handler).setStackInSlot(ref.slot, stack);
+            } else {
+                fakeSetStackInSlot(ref.handler, ref.slot, stack);
+            }
         }
 
         return;
     }
 
+    private void fakeSetStackInSlot(IItemHandler handler, int slot, ItemStack stack) {
+        if(!handler.getStackInSlot(slot).isEmpty()) {
+            handler.extractItem(slot, handler.getStackInSlot(slot).getCount(), false);
+        }
+
+        handler.insertItem(slot, stack.copy(), false);
+    }
+
     class RemoteSlotReference {
         BatCageLinkConfig link;
-        IItemHandlerModifiable handler;
+        IItemHandler handler;
         int slot;
 
-        public RemoteSlotReference(BatCageLinkConfig link, IItemHandlerModifiable handler, int slot) {
+        public RemoteSlotReference(BatCageLinkConfig link, IItemHandler handler, int slot) {
             this.link = link;
             this.handler = handler;
             this.slot = slot;

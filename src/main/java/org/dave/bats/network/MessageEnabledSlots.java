@@ -6,7 +6,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import org.dave.bats.gui.BatCageSlot;
+import org.dave.bats.gui.framework.WidgetSlot;
 
 import java.util.List;
 
@@ -48,12 +48,12 @@ public class MessageEnabledSlots implements IMessage, IMessageHandler<MessageEna
         EntityPlayerMP serverPlayer = ctx.getServerHandler().player;
         int index = 0;
         for(Slot slot : serverPlayer.openContainer.inventorySlots) {
-            if(slot instanceof BatCageSlot) {
+            if(slot instanceof WidgetSlot) {
                 if(index >= message.enabledSlots.length) {
                     break;
                 }
 
-                ((BatCageSlot) slot).setEnabled(message.enabledSlots[index]);
+                ((WidgetSlot) slot).setEnabled(message.enabledSlots[index]);
             }
 
             index++;
