@@ -74,7 +74,7 @@ jar {
 }
 
 reobfJar {
-    addExtraSrgLine("PK: org.mini2Dx org/dave/mini2Dx")
+    addExtraSrgLine("PK: org/mini2Dx org/dave/mini2Dx")
 }
 
 
